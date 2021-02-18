@@ -58,7 +58,7 @@ struct TestSuiteInfo
             _testInfo.push_back(testInfo); \
             return 0; \
         } \
-        inline int _add_suite = AutoTest::add_test_suite(TestSuiteInfo(#suite_name, &_testInfo)); \
+        inline int _add_suite = auto_test::add_test_suite(TestSuiteInfo(#suite_name, &_testInfo)); \
     }; \
     namespace suite_name
 
@@ -68,11 +68,11 @@ struct TestSuiteInfo
         auto bVal = b; \
         if (aVal != bVal) throw std::logic_error( \
         std::string("Assertion failed:") + #a + " != " + #b + \
-        "; " + AutoTest::to_string(aVal) + " != " + AutoTest::to_string(bVal)); }
+        "; " + auto_test::to_string(aVal) + " != " + auto_test::to_string(bVal)); }
 #define ASSERT_TRUE(expected) { if (!(expected)) throw std::logic_error(std::string("Assertion failed:") + #expected + " was false"); }
 #define ASSERT_FALSE(unexpected) { if (expected) throw std::logic_error(std::string("Assertion failed:") + #unexpected + " was true"); }
 
-namespace AutoTest
+namespace auto_test
 {
     inline std::map<std::string, std::vector<TestInfo>*> _testSuites;
 
@@ -103,10 +103,10 @@ namespace AutoTest
 
         for (unsigned int i = 0; i < v_t.size() - 1; i++)
         {
-            str += AutoTest::to_string(v_t[i]) + ", ";
+            str += auto_test::to_string(v_t[i]) + ", ";
         }
 
-        str += AutoTest::to_string(v_t[v_t.size() - 1]) + " ]";
+        str += auto_test::to_string(v_t[v_t.size() - 1]) + " ]";
 
         return str;
     }

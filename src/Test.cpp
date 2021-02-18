@@ -4,17 +4,17 @@
 #include <string>
 
 
-int AutoTest::add_test_suite(const TestSuiteInfo& testSuite)
+int auto_test::add_test_suite(const TestSuiteInfo& testSuite)
 {
     _testSuites[testSuite._suite_name] = testSuite._suite_tests;
     return 0;
 }
 
-int AutoTest::run_test_suite(const std::string& suite_name)
+int auto_test::run_test_suite(const std::string& suite_name)
 {
     unsigned int testFailures = 0;
     
-    std::vector<TestInfo>* suite = AutoTest::_testSuites[suite_name];
+    std::vector<TestInfo>* suite = auto_test::_testSuites[suite_name];
     
     std::cout << "Running suite '" << suite_name << "'" << std::endl;
     std::for_each(
@@ -49,17 +49,17 @@ int AutoTest::run_test_suite(const std::string& suite_name)
 }
 
 
-int AutoTest::run_tests()
+int auto_test::run_tests()
 {
     unsigned int totalTestFailures = 0;
 
     std::cout << "Running test suites" << std::endl;
 
     std::for_each(
-        AutoTest::_testSuites.cbegin(),
-        AutoTest::_testSuites.cend(),
+        auto_test::_testSuites.cbegin(),
+        auto_test::_testSuites.cend(),
         [&totalTestFailures](auto suite) {
-            unsigned int testFailures = AutoTest::run_test_suite(suite.first);
+            unsigned int testFailures = auto_test::run_test_suite(suite.first);
             totalTestFailures += testFailures;
         }
     );
@@ -77,39 +77,39 @@ int AutoTest::run_tests()
 
 }
 
-std::string AutoTest::to_string(int v)
+std::string auto_test::to_string(int v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(long int v)
+std::string auto_test::to_string(long int v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(long long v)
+std::string auto_test::to_string(long long v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(unsigned v)
+std::string auto_test::to_string(unsigned v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(unsigned long v)
+std::string auto_test::to_string(unsigned long v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(unsigned long long v)
+std::string auto_test::to_string(unsigned long long v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(float v)
+std::string auto_test::to_string(float v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(double v)
+std::string auto_test::to_string(double v)
 {
     return std::to_string(v);
 }
-std::string AutoTest::to_string(long double v)
+std::string auto_test::to_string(long double v)
 {
     return std::to_string(v);
 }
