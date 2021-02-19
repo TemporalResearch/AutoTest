@@ -6,10 +6,13 @@ CCFLAGS=-Wall -std=c++2a -g
 LD_INCLUDES=-Iinclude
 
 SRC_HEADERS=$(wildcard include/*.hpp)
+SRC_HEADERS+=$(wildcard include/*/*.hpp)
 SRC_IMPLEMENTATION=$(wildcard src/*.cpp)
+SRC_IMPLEMENTATION+=$(wildcard src/*/*.cpp)
 SRC_OBJECTS=$(addprefix obj/, $(patsubst src/%, %, $(SRC_IMPLEMENTATION:.cpp=.o)))
 
 lib/libauto_test.a: $(SRC_OBJECTS)
+	echo $(SRC_OBJECTS)
 	ar ru $@ $^
 	ranlib $@
 	

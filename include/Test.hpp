@@ -7,6 +7,10 @@
 #include <vector>
 #include <map>
 
+#include "matchers.hpp"
+#include "to_string.hpp"
+#include "MatcherRunner.hpp"
+
 struct TestInfo
 {
     const char* _test_name;
@@ -45,8 +49,6 @@ struct TestSuiteInfo
 
 #define IGNORE_TEST(test_number, test_name) int test_name() // test ignored
 
-// #define TEST(test_number, test_name, test_code...) int test_name() { test_code; return 0; } \
-    // inline static const int test_name ## _auto_adder = test_push_back(TestInfo(#test_name, test_number, &test_name));
 #define TEST(test_number, test_name) void test_name(); \
     inline static const int test_name ## _auto_adder = test_push_back(TestInfo(#test_name, test_number, &test_name)); \
     void test_name()
@@ -62,15 +64,28 @@ struct TestSuiteInfo
     }; \
     namespace suite_name
 
+#define ASSERT_EQUALS(expected, actual) { \
+        auto expVal = expected; \
+        auto actVal = actual; \
+        auto matcher_runner = auto_test::MatcherRunner(#expected, expVal); \
+        matcher_runner.test( \
+            auto_test::matchers::isEqual(#actual, actVal) \
+        ); }
 
-#define ASSERT_EQUALS(a, b) { \
-        auto aVal = a; \
-        auto bVal = b; \
-        if (aVal != bVal) throw std::logic_error( \
-        std::string("Assertion failed:") + #a + " != " + #b + \
-        "; " + auto_test::to_string(aVal) + " != " + auto_test::to_string(bVal)); }
-#define ASSERT_TRUE(expected) { if (!(expected)) throw std::logic_error(std::string("Assertion failed:") + #expected + " was false"); }
-#define ASSERT_FALSE(unexpected) { if (expected) throw std::logic_error(std::string("Assertion failed:") + #unexpected + " was true"); }
+#define ASSERT_TRUE(expected) { \
+    bool expVal = expected; \
+    auto matcher_runner = auto_test::MatcherRunner(#expected, expVal); \
+    matcher_runner.test( \
+        auto_test::matchers::isEqual("true", true) \
+    ); }
+
+#define ASSERT_FALSE(expected) { \
+    bool expVal = expected; \
+    auto matcher_runner = auto_test::MatcherRunner(#expected, expVal); \
+    matcher_runner.test( \
+        auto_test::matchers::isEqual("false", false) \
+    ); }
+
 
 namespace auto_test
 {
@@ -79,37 +94,6 @@ namespace auto_test
     int add_test_suite(const TestSuiteInfo& testSuite);
     int run_test_suite(const std::string& suite_name);
     int run_tests();
-
-    std::string to_string(int v);
-    std::string to_string(long int v);
-    std::string to_string(long long v);
-    std::string to_string(unsigned v);
-    std::string to_string(unsigned long v);
-    std::string to_string(unsigned long long v);
-    std::string to_string(float v);
-    std::string to_string(double v);
-    std::string to_string(long double v);
-
-    template<class T>
-    std::string to_string(const T& t)
-    {
-        return (std::string)t;
-    }
-
-    template<class T>
-    std::string to_string(const std::vector<T>& v_t)
-    {
-        std::string str = "[ ";
-
-        for (unsigned int i = 0; i < v_t.size() - 1; i++)
-        {
-            str += auto_test::to_string(v_t[i]) + ", ";
-        }
-
-        str += auto_test::to_string(v_t[v_t.size() - 1]) + " ]";
-
-        return str;
-    }
 }
 
 #endif
