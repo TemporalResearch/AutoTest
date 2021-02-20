@@ -1,4 +1,4 @@
-#include "Test.hpp"
+#include "auto_test.hpp"
 
 #include <algorithm>
 #include <string>

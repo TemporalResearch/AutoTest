@@ -2,7 +2,7 @@
 #define LIB_AUTO_TEST_MATCHERS_IS_EQUAL_MATCHER_HPP
 
 #include "Matcher.hpp"
-#include <to_string.hpp>
+#include <auto_test/to_string.hpp>
 #include <stdexcept>
 #include <optional>
 
