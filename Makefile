@@ -1,7 +1,7 @@
 .PHONY: clean
-CC=g++
+CC=g++-10
 LDFLAGS=
-CCFLAGS=-Wall -std=c++2a -g
+CCFLAGS=-Wall -std=c++20 -g
 
 LD_INCLUDES=-Iinclude
 

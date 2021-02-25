@@ -3,7 +3,6 @@
 
 #include "Matcher.hpp"
 #include <auto_test/to_string.hpp>
-#include <stdexcept>
 #include <optional>
 
 namespace auto_test::matchers
@@ -12,44 +11,44 @@ namespace auto_test::matchers
     class isEqual: public Matcher<T>
     {
     private:
-        const std::optional<std::string> _actualIdentifier;
-        const T& _actual;
+        const std::optional<std::string> _expectedIdentifier;
+        const T& _expected;
     public:
         isEqual(const T& actual):
-            _actualIdentifier(std::nullopt),
-            _actual(actual)
+            _expectedIdentifier(std::nullopt),
+            _expected(actual)
         {
             
         }
         
         isEqual(const std::string& actualIdentifier, const T& actual):
-            _actualIdentifier(std::make_optional(actualIdentifier)),
-            _actual(actual)
+            _expectedIdentifier(std::make_optional(actualIdentifier)),
+            _expected(actual)
         {
 
         }
         
-        const std::optional<std::string> test(const std::string& expectedIdentifier, const T& expected) const override
+        const std::optional<std::string> test(const std::string& actualIdentifier, const T& actual) const override
         {
-            if (expected != _actual)
+            if (actual != _expected)
             {
-                return std::make_optional(description(expectedIdentifier, expected));
+                return std::make_optional(description(actualIdentifier, actual));
             }
             
             return std::nullopt;
         }
         
-        const std::string description(const std::string& expectedIdentifier, const T& expected) const override
+        const std::string description(const std::string& actualIdentifier, const T& actual) const override
         {
-            if (_actualIdentifier)
+            if (_expectedIdentifier)
             {
-                return expectedIdentifier + " != " + _actualIdentifier.value() + + "; " +
-                    auto_test::to_string(expected) + " != " + auto_test::to_string(_actual);
+                return actualIdentifier + " != " + _expectedIdentifier.value() + + "; " +
+                    auto_test::to_string(actual) + " != " + auto_test::to_string(_expected);
             }
             else
             {
-                std::string superDescription = Matcher<T>::description(expectedIdentifier, expected);
-                return superDescription + "; " + auto_test::to_string(expected) + " != " + auto_test::to_string(_actual);
+                std::string superDescription = Matcher<T>::description(actualIdentifier, actual);
+                return superDescription + "; " + auto_test::to_string(actual) + " != " + auto_test::to_string(_expected);
             }
         }
     };

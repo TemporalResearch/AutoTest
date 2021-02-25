@@ -11,11 +11,11 @@ namespace auto_test::matchers
     {
     public:
         virtual ~Matcher() { }
-        virtual const std::optional<std::string> test(const std::string& expectedIdentifier, const T& expected) const = 0;
+        virtual const std::optional<std::string> test(const std::string& actualIdentifier, const T& actual) const = 0;
 
-        virtual const std::string description(const std::string& expectedIdentifier, const T& expected) const
+        virtual const std::string description(const std::string& actualIdentifier, const T& actual) const
         {
-            return expectedIdentifier + " does not match";
+            return actualIdentifier + " does not match";
         }
     };
 };

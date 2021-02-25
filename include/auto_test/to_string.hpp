@@ -2,6 +2,7 @@
 #define LIB_AUTO_TEST_TO_STRING_HPP
 
 #include <string>
+#include <vector>
 
 namespace auto_test
 {

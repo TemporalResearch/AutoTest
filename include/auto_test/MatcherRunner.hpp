@@ -9,19 +9,19 @@ namespace auto_test
     class MatcherRunner
     {
     private:
-        const std::string _expectedIdentifier;
-        const T& _expected;
+        const std::string _actualIdentifier;
+        const T& _actual;
     public:
-        MatcherRunner(const std::string& expectedIdentifier, const T& expected):
-            _expectedIdentifier(expectedIdentifier),
-            _expected(expected)
+        MatcherRunner(const std::string& actualIdentifier, const T& actual):
+            _actualIdentifier(actualIdentifier),
+            _actual(actual)
         {
 
         }
         
         void test(const auto_test::matchers::Matcher<T>& matcher)
         {
-            std::optional result = matcher.test(_expectedIdentifier, _expected);
+            std::optional result = matcher.test(_actualIdentifier, _actual);
             if (result)
             {
                 throw std::logic_error(

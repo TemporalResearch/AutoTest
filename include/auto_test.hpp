@@ -47,7 +47,7 @@ struct TestSuiteInfo
 };
 
 
-#define IGNORE_TEST(test_number, test_name) int test_name() // test ignored
+#define IGNORE_TEST(test_number, test_name) void test_name() // test ignored
 
 #define TEST(test_number, test_name) void test_name(); \
     inline static const int test_name ## _auto_adder = test_push_back(TestInfo(#test_name, test_number, &test_name)); \
@@ -64,24 +64,25 @@ struct TestSuiteInfo
     }; \
     namespace suite_name
 
-#define ASSERT_EQUALS(expected, actual) { \
+#define ASSERT_MATCHES(actual) auto_test::MatcherRunner(#actual, actual).test
+#define ASSERT_EQUALS(actual, expected) { \
         auto expVal = expected; \
         auto actVal = actual; \
-        auto matcher_runner = auto_test::MatcherRunner(#expected, expVal); \
+        auto matcher_runner = auto_test::MatcherRunner(#actual, actVal); \
         matcher_runner.test( \
-            auto_test::matchers::isEqual(#actual, actVal) \
+            auto_test::matchers::isEqual(#expected, expVal) \
         ); }
 
-#define ASSERT_TRUE(expected) { \
-    bool expVal = expected; \
-    auto matcher_runner = auto_test::MatcherRunner(#expected, expVal); \
+#define ASSERT_TRUE(actual) { \
+    bool actVal = actual; \
+    auto matcher_runner = auto_test::MatcherRunner(#actual, actVal); \
     matcher_runner.test( \
         auto_test::matchers::isEqual("true", true) \
     ); }
 
-#define ASSERT_FALSE(expected) { \
-    bool expVal = expected; \
-    auto matcher_runner = auto_test::MatcherRunner(#expected, expVal); \
+#define ASSERT_FALSE(actual) { \
+    bool actVal = actual; \
+    auto matcher_runner = auto_test::MatcherRunner(#actual, actVal); \
     matcher_runner.test( \
         auto_test::matchers::isEqual("false", false) \
     ); }

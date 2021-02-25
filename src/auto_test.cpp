@@ -28,7 +28,7 @@ int auto_test::run_test_suite(const std::string& suite_name)
                 testInfo._testFunction();
                 std::cout << testInfo._test_name << " passed" << std::endl;
             }
-            catch (std::logic_error err)
+            catch (const std::logic_error& err)
             {
                 std::cout << testInfo._test_name << " failed with: " << err.what() << std::endl;
                 testFailures++;
