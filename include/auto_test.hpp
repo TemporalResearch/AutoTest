@@ -49,6 +49,8 @@ struct TestSuiteInfo
 
 #define IGNORE_TEST(test_number, test_name) void test_name() // test ignored
 
+#define DONT_COMPILE_TEST(test_number, test_name, content...) void test_name() {}
+
 #define TEST(test_number, test_name) void test_name(); \
     inline static const int test_name ## _auto_adder = test_push_back(TestInfo(#test_name, test_number, &test_name)); \
     void test_name()
