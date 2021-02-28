@@ -3,7 +3,7 @@
 
 #include "matchers/Matcher.hpp"
 #include "matchers/isEqual.hpp"
-#include "matchers/isNotEqual.hpp"
+#include "matchers/noMatch.hpp"
 #include "matchers/matchesAny.hpp"
 
 namespace auto_test::matchers

@@ -5,30 +5,49 @@
 #include <auto_test/to_string.hpp>
 #include <optional>
 #include <numeric>
+#include <functional>
+#include <concepts>
 
 namespace auto_test::matchers
 {
-    template<
-        template<class T> class SubMatcher,
-        class U
-    >
+    template<class U>
     class matchesAny: public Matcher<U>
     {
     private:
-        const std::vector<SubMatcher<U>> _matchers;
+        std::vector<Matcher<U>*> _matchers;
+        
+        void pushBackMatchers() { }
+
+        template<template <class T> class SubMatcher, template<class T> class... OtherSubMatchers>
+            requires std::derived_from<SubMatcher<U>, Matcher<U>>
+        void pushBackMatchers(SubMatcher<U>& matcher, OtherSubMatchers<U>&... rest)
+        {
+            _matchers.push_back(&matcher);
+            pushBackMatchers(rest...);
+        }
+
     public:
-        matchesAny(std::initializer_list<SubMatcher<U>> matchers):
-            _matchers(matchers)
+        matchesAny():
+            _matchers()
         {
 
         }
         
+        template<template<class T> class SubMatcher, template<class T> class... OtherSubMatchers>
+            requires std::derived_from<SubMatcher<U>, Matcher<U>>
+        matchesAny(SubMatcher<U>&& matcher, OtherSubMatchers<U>&&... rest):
+            _matchers()
+        {
+            pushBackMatchers(matcher, rest...);
+        }
+
+        
         const std::optional<std::string> test(const std::string& actualIdentifier, const U& actual) const override
         {
             std::vector<std::string> matchErrors;
-            for (int i = 0; i < _matchers.size(); i++)
+            for (unsigned int i = 0; i < _matchers.size(); i++)
             {
-                auto matcherResult = _matchers[i].test(actualIdentifier, actual);
+                auto matcherResult = _matchers[i]->test(actualIdentifier, actual);
                 if (matcherResult)
                 {
                     matchErrors.push_back(matcherResult.value());
@@ -42,9 +61,9 @@ namespace auto_test::matchers
             return std::reduce(
                 matchErrors.cbegin(),
                 matchErrors.cend(),
-                std::string("No match found:\n"),
+                std::string("\nNo match found:\n"),
                 [](const std::string current, const std::string next) {
-                    return current + ";\n" + next;
+                    return current + next + ";\n";
                 });
         }
     };
