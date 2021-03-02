@@ -33,3 +33,5 @@ All suites passed
 
 ## Issue Tracking
 Main issue tracking available at https://git.supermarinesoftware.com/TemporalResearch/AutoTest/issues
+
+Documentation available at https://docs.temporalresearch.co.uk/autotest.git/
