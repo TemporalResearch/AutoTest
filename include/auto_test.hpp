@@ -60,6 +60,14 @@ struct TestSuiteInfo
  */
 #define IGNORE_TEST(test_number, test_name) void test_name() // test ignored
 
+/**
+ * @ingroup test_macros
+ * @def DONT_COMPILE_TEST(test_number, test_name, content...)
+ * @brief Defines a test that does not compile.
+ * 
+ * @param test_number Issue number of the test
+ * @param test_name Test name.
+ */
 #define DONT_COMPILE_TEST(test_number, test_name, content...) void test_name() {}
 
 /**
