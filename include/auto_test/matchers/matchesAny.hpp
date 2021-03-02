@@ -10,6 +10,11 @@
 
 namespace auto_test::matchers
 {
+    /**
+     * @brief Matches values when they match any of the internal matchers.
+     * 
+     * @tparam U Type of the value to be matched.
+     */
     template<class U>
     class matchesAny: public Matcher<U>
     {
@@ -33,6 +38,14 @@ namespace auto_test::matchers
 
         }
         
+        /**
+         * @brief Creates a matcher which is satisfied if any of the sub-matchers are satisfied.
+         * 
+         * @tparam SubMatcher Must be of type Matcher<U>.
+         * @tparam OtherSubMatchers Must all be of type Matcher<U>.
+         * @param matcher First sub-matcher.
+         * @param rest Additional sub-matchers.
+         */
         template<template<class T> class SubMatcher, template<class T> class... OtherSubMatchers>
             requires std::derived_from<SubMatcher<U>, Matcher<U>>
         matchesAny(SubMatcher<U>&& matcher, OtherSubMatchers<U>&&... rest):

@@ -6,6 +6,10 @@
 #include "matchers/noMatch.hpp"
 #include "matchers/matchesAny.hpp"
 
+/**
+ * @brief Provides matchers for use in tests.
+ * 
+ */
 namespace auto_test::matchers
 {
     

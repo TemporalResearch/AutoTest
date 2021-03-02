@@ -7,6 +7,11 @@
 
 namespace auto_test::matchers
 {
+    /**
+     * @brief Matches values when they are equal.
+     * 
+     * @tparam T Type of the value to be matched.
+     */
     template<class T>
     class isEqual: public Matcher<T>
     {
@@ -14,16 +19,23 @@ namespace auto_test::matchers
         const std::optional<std::string> _expectedIdentifier;
         const T& _expected;
     public:
-        isEqual(const T& actual):
+        /**
+         * @param expected The value that the tested value is supposed to match against.
+         */
+        isEqual(const T& expected):
             _expectedIdentifier(std::nullopt),
             _expected(actual)
         {
             
         }
         
-        isEqual(const std::string& actualIdentifier, const T& actual):
-            _expectedIdentifier(std::make_optional(actualIdentifier)),
-            _expected(actual)
+        /**
+         * @param expectedIdentifier The identifier for the expected value.
+         * @param expected The value that the tested value is supposed to match against.
+         */
+        isEqual(const std::string& expectedIdentifier, const T& expected):
+            _expectedIdentifier(std::make_optional(expectedIdentifier)),
+            _expected(expected)
         {
 
         }

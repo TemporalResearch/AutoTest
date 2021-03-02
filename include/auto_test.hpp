@@ -67,6 +67,7 @@ struct TestSuiteInfo
  * 
  * @param test_number Issue number of the test
  * @param test_name Test name.
+ * @param content Contents of the test.
  */
 #define DONT_COMPILE_TEST(test_number, test_name, content...) void test_name() {}
 

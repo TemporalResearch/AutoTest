@@ -7,12 +7,22 @@
 
 namespace auto_test::matchers
 {
+    /**
+     * @brief Satisfied if the internal matcher is not satisfied.
+     * 
+     * @tparam T The type of the value to be matched.
+     */
     template<class T>
     class noMatch: public Matcher<T>
     {
     private:
         Matcher<T>& _matcher;
     public:
+        /**
+         * @brief Negate the matcher provided.
+         * 
+         * @param matcher The matcher to be negated.
+         */
         noMatch(Matcher<T>&& matcher):
             _matcher(matcher)
         {
