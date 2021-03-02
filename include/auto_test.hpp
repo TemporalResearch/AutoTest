@@ -60,6 +60,8 @@ struct TestSuiteInfo
  */
 #define IGNORE_TEST(test_number, test_name) void test_name() // test ignored
 
+#define DONT_COMPILE_TEST(test_number, test_name, content...) void test_name() {}
+
 /**
  * @ingroup test_macros
  * @def TEST(test_number, test_name)
