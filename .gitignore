@@ -1,2 +1,5 @@
 lib/
 obj/
+docs/html
+docs/latex
+docs/def
