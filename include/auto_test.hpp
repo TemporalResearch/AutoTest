@@ -129,8 +129,8 @@ struct TestSuiteInfo
  * @param expected Expected value.
  */
 #define ASSERT_EQUALS(actual, expected) { \
-        auto expVal = expected; \
         auto actVal = actual; \
+        decltype(actVal) expVal = expected; \
         auto matcher_runner = auto_test::MatcherRunner(#actual, actVal); \
         matcher_runner.test( \
             auto_test::matchers::isEqual(#expected, expVal) \
