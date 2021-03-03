@@ -16,7 +16,6 @@ int auto_test::run_test_suite(const std::string& suite_name)
     
     std::vector<TestInfo>* suite = auto_test::_testSuites[suite_name];
     
-    std::cout << "Running suite '" << suite_name << "'" << std::endl;
     std::for_each(
         suite->cbegin(),
         suite->cend(),
@@ -24,14 +23,18 @@ int auto_test::run_test_suite(const std::string& suite_name)
         {
             try
             {
-                std::cout << "    #" << testInfo._issue_number << ": ";
                 testInfo._testFunction();
-                std::cout << testInfo._test_name << " passed" << std::endl;
             }
             catch (const std::logic_error& err)
             {
+                std::cout << "    #" << testInfo._issue_number << ": ";
                 std::cout << testInfo._test_name << " failed with: " << err.what() << std::endl;
                 testFailures++;
+            }
+            catch(const std::exception& err)
+            {
+                std::cout << "    #" << testInfo._issue_number << ": ";
+                std::cout << testInfo._test_name << " failed with non-assertion exception: " << err.what() << std::endl;
             }
         }
     );
@@ -39,12 +42,7 @@ int auto_test::run_test_suite(const std::string& suite_name)
     if (testFailures > 0)
     {
         std::cout << testFailures << " tests failed in suite '" << suite_name << "'" << std::endl;
-    }
-    else
-    {
-        std::cout << "All tests passed in suite '" << suite_name << "'" << std::endl;
     } 
-    
     return testFailures;
 }
 
