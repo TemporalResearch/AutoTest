@@ -3,3 +3,4 @@ obj/
 docs/html
 docs/latex
 docs/def
+*.DS_Store

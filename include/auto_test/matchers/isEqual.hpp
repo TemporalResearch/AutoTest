@@ -24,7 +24,7 @@ namespace auto_test::matchers
          */
         isEqual(const T& expected):
             _expectedIdentifier(std::nullopt),
-            _expected(actual)
+            _expected(expected)
         {
             
         }
