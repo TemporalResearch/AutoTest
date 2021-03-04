@@ -26,6 +26,7 @@ namespace auto_test::matchers
          */
         virtual const std::optional<std::string> test(const std::string& actualIdentifier, const T& actual) const = 0;
 
+        // FIXME: #4 This is pointless, it only ever gets called by the test method, it is not part of this interface
         /**
          * @brief A description of how the value provided does not match.
          * 
