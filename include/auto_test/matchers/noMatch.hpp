@@ -16,14 +16,25 @@ namespace auto_test::matchers
     class noMatch: public Matcher<T>
     {
     private:
-        Matcher<T>& _matcher;
+        const Matcher<T>& _matcher;
     public:
         /**
          * @brief Negate the matcher provided.
          * 
          * @param matcher The matcher to be negated.
          */
-        noMatch(Matcher<T>&& matcher):
+        noMatch(const Matcher<T>&& matcher):
+            _matcher(matcher)
+        {
+            
+        }
+
+        /**
+         * @brief Negate the matcher provided.
+         * 
+         * @param matcher The matcher to be negated.
+         */
+        noMatch(const Matcher<T>& matcher):
             _matcher(matcher)
         {
             
