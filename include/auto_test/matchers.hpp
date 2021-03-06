@@ -5,6 +5,7 @@
 #include "matchers/isEqual.hpp"
 #include "matchers/noMatch.hpp"
 #include "matchers/matchesAny.hpp"
+#include "matchers/vector.hpp"
 
 /**
  * @brief Provides matchers for use in tests.
