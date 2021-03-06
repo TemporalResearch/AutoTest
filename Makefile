@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean test
 CC=g++-10
 LDFLAGS=
 CCFLAGS=-Wall -std=c++20 -g
@@ -21,6 +21,9 @@ $(SRC_OBJECTS): obj/%.o: src/%.cpp include/%.hpp obj/%.dir
 
 obj/%.dir:
 	mkdir -p $@
+	
+test:
+	make -C ./tests test
 
 clean:
 	rm -rf obj
