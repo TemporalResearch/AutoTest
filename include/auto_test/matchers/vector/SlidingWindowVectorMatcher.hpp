@@ -20,6 +20,12 @@ namespace auto_test::matchers::vector
         const unsigned int _windowSize;
         const auto_test::matchers::Matcher<std::vector<T>>& _windowMatcher;
     public:
+        /**
+         * @brief Construct a new Sliding Window Vector Matcher
+         * 
+         * @param windowSize The size of the window inside the vector to match against.
+         * @param windowMatcher The matcher that the window should match against.
+         */
         SlidingWindowVectorMatcher(const unsigned int& windowSize, const auto_test::matchers::Matcher<std::vector<T>>& windowMatcher):
             _windowSize(windowSize),
             _windowMatcher(windowMatcher)
@@ -29,7 +35,7 @@ namespace auto_test::matchers::vector
 
         const std::optional<std::string> test(const std::string& actualIdentifier, const std::vector<T>& actual) const override
         {
-            for (unsigned int windowStart; windowStart < (actual.size() - _windowSize); windowStart++)
+            for (unsigned int windowStart = 0; windowStart < (actual.size() - _windowSize); windowStart++)
             {
                 // FIXME: #7 this is a bit yuck, is there really no better way to match on vectors than this? Should not really have to allocate each window
                 std::vector<T> subVector(actual.cbegin() + windowStart, actual.cbegin() + windowStart + _windowSize);
