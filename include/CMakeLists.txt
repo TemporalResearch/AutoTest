@@ -1,0 +1,1 @@
+supermarine_add_leaf_module(auto_test_src)

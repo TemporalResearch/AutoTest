@@ -6,7 +6,6 @@
 #include <optional>
 #include <numeric>
 #include <functional>
-#include <concepts>
 
 namespace auto_test::matchers
 {
@@ -24,7 +23,9 @@ namespace auto_test::matchers
         void pushBackMatchers() { }
 
         template<template <class T> class SubMatcher, template<class T> class... OtherSubMatchers>
+#if __cplusplus >= 201704L
             requires std::derived_from<SubMatcher<U>, Matcher<U>>
+#endif
         void pushBackMatchers(SubMatcher<U>& matcher, OtherSubMatchers<U>&... rest)
         {
             _matchers.push_back(&matcher);
@@ -47,7 +48,9 @@ namespace auto_test::matchers
          * @param rest Additional sub-matchers.
          */
         template<template<class T> class SubMatcher, template<class T> class... OtherSubMatchers>
+#if __cplusplus >= 201704L
             requires std::derived_from<SubMatcher<U>, Matcher<U>>
+#endif
         matchesAny(SubMatcher<U>&& matcher, OtherSubMatchers<U>&&... rest):
             _matchers()
         {

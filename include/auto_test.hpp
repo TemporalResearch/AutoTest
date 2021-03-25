@@ -71,6 +71,11 @@ struct TestSuiteInfo
  */
 #define DONT_COMPILE_TEST(test_number, test_name, content...) void test_name() {}
 
+#define RUN_SUITE(suite_name) namespace suite_name { \
+        int runSuite();                              \
+    }                                                \
+    static int suite_name ## _auto_add = suite_name::runSuite();
+
 /**
  * @ingroup test_macros
  * @def TEST(test_number, test_name)
@@ -80,7 +85,7 @@ struct TestSuiteInfo
  * @param test_name Test name.
  */
 #define TEST(test_number, test_name) void test_name(); \
-    inline static const int test_name ## _auto_adder = test_push_back(TestInfo(#test_name, test_number, &test_name)); \
+    static inline int test_name ## _auto_adder = test_push_back(TestInfo(#test_name, test_number, &test_name)); \
     void test_name()
 
 /**
@@ -93,11 +98,15 @@ struct TestSuiteInfo
 #define TEST_SUITE(suite_name) namespace suite_name { \
         inline static std::vector<TestInfo> _testInfo;\
         int test_push_back(TestInfo testInfo) \
-        { \
+        {                                             \
             _testInfo.push_back(testInfo); \
             return 0; \
         } \
-        inline int _add_suite = auto_test::add_test_suite(TestSuiteInfo(#suite_name, &_testInfo)); \
+        static inline int _add_suite ## suite_name = auto_test::add_test_suite(TestSuiteInfo(#suite_name, &suite_name::_testInfo)); \
+        int runSuite() { \
+            std::cout << "Adding test suite: " << #suite_name << std::endl; \
+            return 0; \
+        } \
     }; \
     namespace suite_name
 

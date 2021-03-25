@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <string>
+#include <iostream>
 
 
 int auto_test::add_test_suite(const TestSuiteInfo& testSuite)
@@ -13,7 +14,7 @@ int auto_test::add_test_suite(const TestSuiteInfo& testSuite)
 int auto_test::run_test_suite(const std::string& suite_name)
 {
     unsigned int testFailures = 0;
-    
+
     std::vector<TestInfo>* suite = auto_test::_testSuites[suite_name];
     
     std::for_each(

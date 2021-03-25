@@ -19,13 +19,15 @@ namespace auto_test
     std::string to_string(float v);
     std::string to_string(double v);
     std::string to_string(long double v);
-    
+
+#if __cplusplus >= 201704L
     template<class T>
         requires std::is_enum_v<T>
     std::string to_string(const T& t)
     {
         return std::to_string((int)t);
     }
+#endif
 
     template<class T>
     std::string to_string(const T& t)
