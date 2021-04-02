@@ -32,7 +32,7 @@ namespace auto_test
     template<class T>
     std::string to_string(const T& t)
     {
-        return (std::string)t;
+        return static_cast<std::string>(t);
     }
 
     template<class T>
