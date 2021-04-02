@@ -38,14 +38,19 @@ namespace auto_test
     template<class T>
     std::string to_string(const std::vector<T>& v_t)
     {
+        if (v_t.empty())
+        {
+            return "[]";
+        }
+
         std::string str = "[ ";
 
         for (unsigned int i = 0; i < v_t.size() - 1; i++)
         {
-            str += auto_test::to_string(v_t[i]) + ", ";
+            str += auto_test::to_string(v_t.at(i)) + ", ";
         }
 
-        str += auto_test::to_string(v_t[v_t.size() - 1]) + " ]";
+        str += auto_test::to_string(v_t.at(v_t.size() - 1)) + " ]";
 
         return str;
     }
