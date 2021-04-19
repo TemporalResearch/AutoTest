@@ -7,9 +7,9 @@
 #include <vector>
 #include <map>
 
-#include "auto_test/matchers.hpp"
-#include "auto_test/to_string.hpp"
-#include "auto_test/MatcherRunner.hpp"
+#include <auto_test/to_string.hpp>
+#include <auto_test/MatcherRunner.hpp>
+#include <auto_test/matchers/isEqual.hpp>
 
 struct TestInfo
 {

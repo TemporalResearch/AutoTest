@@ -2,6 +2,7 @@
 #define LIB_AUTO_TEST_MATCHER_RUNNER_HPP
 
 #include <string>
+#include <auto_test/matchers/Matcher.hpp>
 
 namespace auto_test
 {

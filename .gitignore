@@ -4,4 +4,5 @@ docs/html
 docs/latex
 docs/def
 tests/test_build
+extern_build
 *.DS_Store
