@@ -2,7 +2,7 @@ if (TARGET libautotest::libautotest)
     return()
 endif()
 
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/include ${CMAKE_CURRENT_LIST_DIR}/extern_build)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/include libauto_test)
 
 add_library(libautotest::libautotest INTERFACE IMPORTED)
 SET_TARGET_PROPERTIES(libautotest::libautotest PROPERTIES LINKER_LANGUAGE CXX)
