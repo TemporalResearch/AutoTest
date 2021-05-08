@@ -6,6 +6,7 @@
 #include <set>
 #include <algorithm>
 #include <type_traits>
+#include <trlang/functional/optional.hpp>
 
 namespace auto_test
 {
@@ -30,13 +31,26 @@ namespace auto_test
 #endif
 
     template<class T>
+    std::string to_string(const trl::optional<T>& t)
+    {
+        if (t.has_value())
+        {
+            return std::string("trl::opt(") + to_string(t.value()) + ")";
+        }
+        else
+        {
+            return "trl::nullopt";
+        }
+    }
+
+    template<class T>
     std::string to_string(const T& t)
     {
         return static_cast<std::string>(t);
     }
 
-    template<class T>
-    std::string to_string(const std::vector<T>& v_t)
+template<class T>
+std::string to_string(const std::vector<T>& v_t)
     {
         if (v_t.empty())
         {

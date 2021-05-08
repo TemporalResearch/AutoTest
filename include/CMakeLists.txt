@@ -13,7 +13,10 @@ if (NOT TARGET auto_test_src_module)
             ../src/auto_test/to_string.cpp
             )
 
+    find_package(libtr_lang REQUIRED)
     target_include_directories(auto_test_src_module PRIVATE ./)
+    target_link_libraries(auto_test_src_module
+            PUBLIC libtr_lang::libtr_lang)
     SET_TARGET_PROPERTIES(auto_test_src_module PROPERTIES LINKER_LANGUAGE CXX)
 
 endif()
