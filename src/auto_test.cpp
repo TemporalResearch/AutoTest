@@ -36,6 +36,7 @@ int auto_test::run_test_suite(const std::string& suite_name)
             {
                 std::cout << "    #" << testInfo._issue_number << ": ";
                 std::cout << testInfo._test_name << " failed with non-assertion exception: " << err.what() << std::endl;
+                testFailures++;
             }
         }
     );
